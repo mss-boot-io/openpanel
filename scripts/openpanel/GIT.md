@@ -39,6 +39,11 @@ git push origin main
 OpenPanel releases are published from tags named `openpanel-v*` so they do not
 trigger the upstream `v*` release workflow.
 
+Current first release tag:
+
+- `openpanel-v2.0.0-open.1`
+- points to `ab66895 openpanel: add installer and release workflow`
+
 ```bash
 cd /home/lwx/go/src/github.com/lwnmengjing/1Panel
 git tag openpanel-v2.0.0-open.1

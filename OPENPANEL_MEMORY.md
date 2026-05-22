@@ -53,6 +53,8 @@ upgrade work without rediscovering the setup.
 - Baseline tag: `openpanel-working-20260522`
 - Baseline commit: `8c4e325 openpanel: initial custom working baseline`
 - Release tags: use `openpanel-v*`, not upstream-style `v*`.
+- First OpenPanel release tag pushed: `openpanel-v2.0.0-open.1`
+- Installer/release commit: `ab66895 openpanel: add installer and release workflow`
 
 ## Deployment Memory
 
@@ -98,6 +100,18 @@ first:
 - Self-hosted scripts under `scripts/openpanel`.
 - Root one-click installer `install.sh`.
 - OpenPanel release workflow `.github/workflows/openpanel-release.yml`.
+
+## Installer Memory
+
+- `install.sh` is the server-side one-click installer. It downloads artifacts
+  from GitHub Releases.
+- `scripts/openpanel/upgrade_existing_node.sh` is the local WSL/SSH helper for
+  upgrading an existing open-source 1Panel node in place.
+- Existing installs are upgraded without `--reset-data` by default.
+- Existing config is preserved by default, and base directories are auto-
+  detected from `/usr/local/bin/1pctl` when possible.
+- If the old install is not under `/opt` and detection fails, pass
+  `--base-dir <dir>` explicitly.
 
 ## Minimum Acceptance Test
 

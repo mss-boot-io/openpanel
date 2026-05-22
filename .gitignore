@@ -63,6 +63,8 @@ core/utils/xpack/enterprise.go
 .history/
 dist/
 build/
+!frontend/src/views/container/image/build/
+!frontend/src/views/container/image/build/index.vue
 1pctl
 1panel.service
 install.sh

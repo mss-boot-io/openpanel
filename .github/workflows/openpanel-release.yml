@@ -45,9 +45,12 @@ jobs:
           GOARCH: ${{ matrix.goarch }}
           NODE_OPTIONS: --max-old-space-size=8192
         run: |
+          set -Eeuo pipefail
           release_version="${GITHUB_REF_NAME#openpanel-}"
           export VERSION="${release_version}"
-          artifact="$(scripts/openpanel/build_artifact.sh | tail -n 1)"
+          scripts/openpanel/build_artifact.sh 2>&1 | tee openpanel-build.log
+          artifact="build/openpanel/openpanel-${release_version}-linux-${{ matrix.goarch }}.tar.gz"
+          test -f "${artifact}"
           mkdir -p release
           cp "${artifact}" "release/openpanel-${release_version}-linux-${{ matrix.goarch }}.tar.gz"
           cp "${artifact}" "release/openpanel-linux-${{ matrix.goarch }}.tar.gz"
