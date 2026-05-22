@@ -32,8 +32,8 @@ require (
 	github.com/xlzd/gotp v0.1.0
 	golang.org/x/crypto v0.50.0
 	golang.org/x/net v0.53.0
-	golang.org/x/sys v0.43.0
-	golang.org/x/term v0.42.0
+	golang.org/x/sys v0.44.0
+	golang.org/x/term v0.43.0
 	golang.org/x/text v0.36.0
 	gopkg.in/yaml.v2 v2.4.0
 	gopkg.in/yaml.v3 v3.0.1
