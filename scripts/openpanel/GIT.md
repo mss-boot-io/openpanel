@@ -47,7 +47,11 @@ Release tags:
   ignored by the generic `build/` rule.
 - `openpanel-v2.0.0-open.2`
 - points to `ba1be5e openpanel: fix release build inputs`
-- current release tag to watch.
+- failed because `frontend/src/views/website/website/nginx/module/build` was
+  also ignored by the generic `build/` rule.
+- `openpanel-v2.0.0-open.3`
+- points to `e740f66 openpanel: track frontend build source views`
+- release succeeded and published assets.
 
 ```bash
 cd /home/lwx/go/src/github.com/lwnmengjing/1Panel
@@ -55,9 +59,8 @@ git tag openpanel-v2.0.0-open.N
 git push origin openpanel-v2.0.0-open.N
 ```
 
-GitHub CLI is installed in WSL at `/home/lwx/.local/bin/gh`. It needs
-`gh auth login` or `GH_TOKEN` before it can manage private repo Actions and
-Releases.
+GitHub CLI is installed and authenticated in WSL at `/home/lwx/.local/bin/gh`.
+Use it for Actions and Release management.
 
 The `.github/workflows/openpanel-release.yml` workflow uploads:
 

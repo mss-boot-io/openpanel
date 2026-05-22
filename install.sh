@@ -161,14 +161,15 @@ backup_existing_install() {
 
 artifact_download_url() {
   local arch="$1"
+  local asset_name="openpanel-linux-${arch}.tar.gz"
   if [ -n "${ARTIFACT_URL}" ]; then
     printf '%s\n' "${ARTIFACT_URL}"
     return
   fi
   if [ "${RELEASE}" = "latest" ]; then
-    printf 'https://github.com/%s/releases/latest/download/openpanel-linux-%s.tar.gz\n' "${REPO}" "${arch}"
+    printf 'https://github.com/%s/releases/latest/download/%s\n' "${REPO}" "${asset_name}"
   else
-    printf 'https://github.com/%s/releases/download/%s/openpanel-linux-%s.tar.gz\n' "${REPO}" "${RELEASE}" "${arch}"
+    printf 'https://github.com/%s/releases/download/%s/%s\n' "${REPO}" "${RELEASE}" "${asset_name}"
   fi
 }
 

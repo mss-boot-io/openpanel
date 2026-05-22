@@ -59,12 +59,12 @@ upgrade work without rediscovering the setup.
   - `openpanel-v2.0.0-open.1` failed in CI because
     `frontend/src/views/container/image/build/index.vue` was ignored by the
     generic `build/` rule.
-  - `openpanel-v2.0.0-open.2` includes the fix and is the current release tag
-    to watch.
+  - `openpanel-v2.0.0-open.2` failed because another source directory named
+    `build` was still ignored.
+  - `openpanel-v2.0.0-open.3` succeeded and published release assets.
 - WSL GitHub CLI path: `/home/lwx/.local/bin/gh`.
 - `gh` version installed in WSL: `2.92.0`.
-- `gh` still needs authentication with `gh auth login` or `GH_TOKEN` before it
-  can manage private repo Actions/Releases.
+- GitHub CLI is authenticated in WSL and can manage Actions/Releases.
 
 ## Deployment Memory
 
