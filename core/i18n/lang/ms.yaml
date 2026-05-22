@@ -1,0 +1,271 @@
+ErrInvalidParams: 'Permintaan tidak sah: {{ .detail }}'
+ErrTokenParse: 'Token tidak sah: {{ .detail }}'
+ErrInitialPassword: 'Kata laluan asal salah'
+ErrInternalServer: 'Ralat pelayan: {{ .detail }}'
+ErrRecordExist: 'Rekod sudah wujud'
+ErrRecordNotFound: 'Rekod tidak ditemui'
+ErrStructTransform: 'Ralat penukaran: {{ .err }}'
+ErrNotLogin: 'Belum log masuk: {{ .detail }}'
+ErrSessionDataNotFound: "Sesi semasa telah tamat tempoh"
+ErrSessionDataFormat: "Format data sesi semasa tidak normal"
+ErrPasswordExpired: 'Kata laluan tamat: {{ .detail }}'
+ErrNotSupportType: 'Jenis tidak disokong: {{ .name }}'
+ErrProxy: 'Permintaan gagal: {{ .detail }}'
+ErrApiConfigStatusInvalid: 'API dilumpuhkan: {{ .detail }}'
+ErrApiConfigKeyInvalid: 'Kunci API tidak sah: {{ .detail }}'
+ErrApiConfigIPInvalid: 'IP tidak dibenarkan: {{ .detail }}'
+ErrApiConfigDisable: 'API tidak dibenarkan: {{ .detail }}'
+ErrApiConfigKeyTimeInvalid: 'Cap masa tidak sah: {{ .detail }}'
+ErrLoginLocked: "Terlalu banyak percubaan gagal. Log masuk dikunci sementara selama 5 minit."
+
+# request
+ErrNoSuchHost: "Pelayan yang diminta tidak dapat ditemui {{ .err }}"
+ErrHttpReqNotFound: "Sumber yang diminta tidak dapat ditemui {{ .err }}"
+ErrHttpReqFailed: "Permintaan gagal {{ .err }}"
+ErrHttpReqTimeOut: "Permintaan telah tamat masa {{ .err }}"
+ErrCreateHttpClient: "Gagal mencipta permintaan {{ .err }}"
+ErrProxySetting: "Maklumat pelayan proksi tidak tersedia {{ .err }}, sila periksa dan cuba lagi"
+ErrEntranceFormat: "Pintu masuk keselamatan {{ .name }} tidak disokong buat masa ini. Sila periksa dan cuba lagi"
+
+# common
+ErrDemoEnvironment: 'Tidak tersedia dalam demo'
+ErrCmdTimeout: 'Arahan tamat masa'
+ErrEntrance: "Maklumat pintu masuk keselamatan salah, sila periksa dan cuba lagi"
+ErrGroupIsDefault: "Kumpulan lalai tidak boleh dihapuskan"
+ErrGroupIsInUse: "Kumpulan sedang digunakan dan tidak boleh dipadam."
+ErrLocalDelete: "Nod tempatan tidak boleh dihapuskan"
+ErrPortInUsed: "Port {{ .name }} telah digunakan"
+ErrInternalServerKey: "Ralat dalaman pelayan:"
+MasterNode: "Nod Induk"
+
+# app
+CustomAppStoreFileValid: "Pakej stor aplikasi perlu dalam format .tar.gz"
+ErrFileNotFound: "Fail {{ .name }} tidak wujud"
+
+# backup
+ErrBackupInUsed: 'Akaun sandaran sedang digunakan oleh tugas'
+ErrBackupCheck: 'Ujian sambungan gagal: {{ .err }}'
+ErrBackupLocal: "Akaun sandaran pelayan tempatan tidak menyokong operasi ini"
+ErrBackupPublic: "Akaun sandaran ini dikesan tidak awam, sila semak semula dan cuba lagi"
+ErrOSSConn: "Tidak dapat mendapatkan versi terkini, sila semak sambungan rangkaian luar pelayan."
+
+#license
+LicenseCheck: 'Periksa sama ada lesen tersedia'
+ErrLicenseInUsed: 'Lesen ini telah terikat. Sila periksa dan cuba lagi'
+ErrLicenseExpired: 'Lesen ini telah tamat tempoh. Sila periksa dan cuba lagi'
+ErrLicense: "Format lesen tidak sah, sila semak dan cuba lagi"
+ErrLicenseCheck: "Pengesahan lesen gagal, sila semak dan cuba lagi"
+ErrXpackVersion: "Pengesahan lesen gagal, lesen ini terhad kepada versi tertentu, sila semak dan cuba lagi"
+ErrLicenseSave: "Gagal menyimpan maklumat lesen {{ .err }}, sila cuba lagi"
+ErrLicenseSync: "Penyelarasan maklumat lesen gagal, maklumat lesen tidak ditemui dalam pangkalan data"
+ErrLicenseExist: "Rekod lesen ini sudah wujud. Anda boleh terus ke halaman lesen untuk mengikat nod."
+ErrXpackNotFound: "Bahagian ini memerlukan Edisi Business. Import lesen di Tetapan Panel > Lesen"
+ErrXpackExceptional: "Bahagian ini memerlukan Edisi Business. Segerakkan status lesen di Tetapan Panel > Lesen"
+ErrXpackLost: "Lesen telah mencapai had percubaan semula. Pergi ke Tetapan Panel > Lesen dan jalankan penyelarasan manual"
+ErrDeviceLost: "Fail yang diperlukan untuk pengesahan lesen hilang, sila semak dan cuba lagi"
+ErrDeviceErr: "Persekitaran semasa tidak sepadan dengan persekitaran import lesen. Sila edit lesen dan import semula"
+ErrXpackTimeout: "Permintaan tamat masa, sambungan rangkaian mungkin tidak stabil, sila cuba lagi kemudian"
+ErrUnbindMaster: "Terdapat nod dalam pengurusan nod, sila keluarkan dahulu dan cuba lagi"
+ErrEnterpriseLicenseRequired: "Lesen Edisi Enterprise belum diimport. Sila import lesen terlebih dahulu"
+ErrFreeNodeLimit: "Had nod Edisi Community telah dicapai. Pergi ke www.lxware.cn/1panel untuk naik taraf dan cuba lagi"
+ErrNodeBound: "Lesen ini telah diikat dengan nod lain, sila semak dan cuba lagi"
+ErrNodeBoundDelete: "Lisensi ini telah diikat dan tidak menyokong operasi penghapusan. Sila semak dan cuba lagi"
+ErrNodeBoundLimit: "Nod percuma semasa telah mencapai had, sila semak dan cuba lagi"
+ErrLicenseFree: "Nod percuma hanya boleh digunakan apabila lesen terikat dengan betul pada nod. Sila semak dan cuba lagi"
+ErrLicenseUnbind: "Lesen ini masih terikat pada nod Edisi Community. Nyahikat di Tetapan Panel > Lesen dan cuba lagi"
+ErrLicenseBindCount: "Bilangan nod percuma lesen baharu kurang daripada bilangan nod Edisi Community yang sedang terikat. Sila semak dan cuba lagi"
+ErrNoSuchNode: "Maklumat nod tidak ditemui, sila semak dan cuba lagi"
+ErrNodeUnbind: "Nod di luar skop lesen dikesan, sila semak dan cuba lagi"
+ErrNodeBind: "Nod ini telah diikat dengan lesen, sila semak dan cuba lagi"
+ErrNodeLocalRollback: "Nod utama tidak menyokong rollback secara langsung. Jalankan '1pctl restore' secara manual untuk rollback"
+ErrIntlLicense: "Versi semasa belum menyokong import lesen edisi antarabangsa. Nantikan"
+
+# user
+ErrNoSuchUser: "Maklumat pengguna tidak ditemui, sila semak dan cuba lagi"
+ErrToMaster: "Pengguna ini tiada kebenaran untuk melakukan operasi ini pada nod utama, sila semak dan cuba lagi"
+ErrToNode: "Pengguna ini tiada kebenaran untuk melakukan operasi ini pada nod ini, sila semak dan cuba lagi"
+ErrRBAC: "Kebenaran pengguna tidak mencukupi, operasi ini tidak boleh dilakukan. Sila semak dan cuba lagi"
+ErrNoneNode: "Pengguna ini tidak mempunyai sebarang kebenaran nod. Sila hubungi pentadbir atau semak dan cuba lagi"
+ErrOnlySuperAdmin: "Hanya super admin boleh menggunakan fungsi ini"
+ErrRolePresetCannotDelete: "Peranan pratetap sistem tidak boleh dipadam"
+ErrRolePresetCannotUpdate: "Peranan pratetap sistem tidak boleh dikemas kini"
+ErrRoleBoundToUser: "Peranan ini sudah terikat kepada pengguna dan tidak boleh dipadam"
+ErrRolePresetCannotBind: "Peranan pratetap sistem tidak boleh diberikan kepada pengguna"
+ErrNodeAdminMasterForbidden: "Kebenaran Pentadbir Nod tidak boleh ditambah pada nod utama"
+ErrSuperAdminCannotDelete: "Pengguna super admin tidak boleh dipadam"
+
+InvalidRequestBodyType: "Format badan permintaan tidak sah, sila periksa dan pastikan kandungan memenuhi format yang diperlukan sebelum mencuba semula"
+InvalidLicenseCodeType: "Format kod lesen yang diberikan tidak sah, sila periksa dan cuba lagi"
+LicenseNotFoundType: "Lesen tidak dijumpai, tiada rekod yang sepadan dengan lesen yang diberikan dalam sistem. Sila periksa dan cuba lagi"
+LicenseRevokedType: "Lesen yang diminta telah dibatalkan dan tidak boleh digunakan lagi. Sila periksa dan cuba lagi"
+LicenseExpiredType: "Lesen telah tamat tempoh. Sila perbaharui atau import semula lesen dalam Tetapan Panel - Bahagian Lesen sebelum mencuba semula"
+LicenseProductMismatchType: "Lesen tidak sepadan dengan produk atau perkhidmatan yang diminta"
+InvalidAssigneeType: "Maklumat pengguna atau peranti sasaran untuk penugasan lesen tidak sah. Sila periksa dan cuba lagi"
+LicenseUsageNotFoundType: "Tiada rekod penggunaan dijumpai. Lesen ini belum diaktifkan atau digunakan. Sila periksa dan cuba lagi"
+LicenseUsageLimitExceededType: "Lesen ini sudah terikat pada nod lain. Sila periksa dan cuba lagi"
+
+# alert
+ErrAlertSync: "Ralat penyinkronan maklumat amaran, sila semak dan cuba lagi"
+
+#task
+TaskStart: "{{ .name }} tugas bermula [START]"
+TaskEnd: "{{ .name }} tugas tamat [COMPLETED]"
+TaskFailed: "{{ .name }} tugas gagal"
+TaskTimeout: "{{ .name }} tamat masa"
+TaskSuccess: "{{ .name }} tugas berjaya"
+TaskRetry: "Mula percubaan semula {{ .name }}"
+SubTaskSuccess: "{{ .name }} berjaya"
+SubTaskFailed: "{{ .name }} gagal: {{ .err }}"
+TaskInstall: "Pasang"
+TaskUpgrade: "Kemas kini"
+TaskSync: 'Selaraskan'
+TaskSyncForNode: "Segerakan Data Nod"
+TaskBackup: "Sandaran"
+SuccessStatus: "{{ .name }} berjaya"
+FailedStatus: "{{ .name }} gagal {{ .err }}"
+Start: "Mula"
+SubTask: "Tugas Sub"
+Skip: "Abaikan ralat dan teruskan..."
+PushAppInstallTaskToNode: "Hantar tugas pemasangan aplikasi ke nod [{{ .name }}]"
+TaskPush: "Hantar"
+AppInstallTask: "Tugas pemasangan aplikasi"
+PushAppFailed: "Gagal menghantar tugas pemasangan aplikasi"
+Success: "Berjaya"
+
+#script 
+ScriptLibrary: "Pustaka Skrip"
+RemoteScriptLibrary: "Pustaka Skrip Jauh"
+ScriptSyncSkip: "Pustaka skrip semasa sudah versi terkini"
+DownloadData: "Muat turun fail pustaka skrip data.yaml"
+DownloadPackage: "Muat turun pakej pustaka skrip"
+AnalyticCompletion: "Analisis selesai, sedang menyegerakkan ke pangkalan data..."
+
+Node: "Nod"
+SyncNode: "Selaraskan data ke nod {{ .name }}"
+LocalName: "Nama 'local' hanya digunakan untuk pengenalpastian tempatan sistem"
+SyncPackageData: "Pakej data segerak"
+SyncPackageEncrypt: "Enkripsi pakej data"
+SyncRequest: "Permintaan API segerak nod"
+SyncFailedRetry: "Segerakan data nod tamat masa (percubaan ke-{{ .index }}), mencuba semula..."
+SyncFailed: "Segerakan gagal, sila segerakkan secara manual dalam senarai nod"
+SyncSystemProxy: "Tetapan Proksi Sistem"
+SyncScripts: "Pustaka Skrip"
+SyncBackupAccounts: "Akaun Sandaran"
+SyncAlertSetting: "Tetapan Amaran"
+SyncCustomApp: "Aplikasi Tersuai"
+SyncLanguage: "Bahasa Sistem"
+SyncEdition: "Wilayah Operasi"
+
+#upgrade node
+NodeUpgrade: "Naik taraf node {{ .name }}"
+UpgradeCheck: "Periksa kemas kini nod"
+UpgradeCheckLocal: "Nod tempatan tidak menyokong peningkatan kelompok, dilangkau..."
+UpgradeCheckLatest: "Nod sudah versi terkini, dilangkau..."
+NewSSHClient: "Memulakan sambungan SSH"
+BackupBeforeUpgrade: "Menyandarkan data sebelum naik taraf"
+UploadUpgradeFile: "Sebarkan fail naik taraf"
+RestartAfterUpgrade: "Mulakan perkhidmatan selepas naik taraf"
+
+#add node
+MasterData: "Data Nod Master"
+LoadSftpClient: "Dapatkan Klien SFTP"
+PackageMasterData: "Hasilkan pakej sandaran nod master"
+UploadBackup: "Muat naik data sandaran"
+MvBackup: "Alihkan data ke direktori sandaran"
+TaskAddNode: "Tambah nod"
+LoadNodeArch: "Dapatkan maklumat seni bina nod"
+LoadNodeArchDetail: "Mengesan seni bina nod induk: {{ .local }}, seni bina nod anak: {{ .node }}"
+LoadNodeUpgradeDetail: "Menggunakan direktori pemasangan sejarah versi v1: {{ .baseDir }}, port mendengar perkhidmatan: {{ .port }}"
+SyncAgentBaseInfo: "Sinkronkan maklumat asas nod"
+GenerateSSLInfo: "Cipta maklumat SSL nod"
+ConnInfoNotMatch: "Maklumat sambungan tidak sepadan"
+MakeAgentPackage: "Cipta pakej pemasangan nod"
+SendAgent: "Muat naik pakej pemasangan nod"
+StartService: "Mulakan perkhidmatan"
+NoBackupNode: "Nod sandaran kosong. Sila pilih nod sandaran untuk disimpan dan cuba lagi"
+
+#cmd
+AppVersion: "Versi aplikasi"
+AppCommands: "Arahan berkaitan aplikasi"
+AppInit: "Inisialisasi aplikasi"
+AppKeyVal: "Kunci aplikasi (hanya menyokong bahasa Inggeris)"
+AppCreateFileErr: "Gagal mencipta fail {{ .name }} {{ .err }}"
+AppCreateDirErr: "Gagal mencipta folder {{ .name }} {{ .err }}"
+AppMissKey: "Kunci aplikasi hilang, gunakan -k untuk menetapkan"
+AppMissVersion: "Versi aplikasi hilang, gunakan -v untuk menetapkan"
+AppVersionExist: "Versi sudah wujud"
+AppCreateSuccessful: "Ciptaan berjaya"
+AppWriteErr: "Penulisan fail {{ .name }} gagal {{ .err }}"
+SudoHelper: "Sila gunakan {{ .cmd }} atau tukar ke pengguna root"
+UsernameNeed: "Edisi Enterprise mesti menentukan --username"
+ListenIPCommands: "Tukar IP mendengar"
+ListenIPv4: "Mendengar pada IPv4"
+ListenIPv6: "Mendengar pada IPv6"
+ListenChangeSuccessful: "Tukar berjaya Kini mendengar pada {{ .value }}"
+ResetCommands: "Tetapkan semula maklumat sistem"
+ResetMFA: "Batal pengesahan dua faktor 1Panel"
+ResetHttps: "Batal log masuk HTTPS 1Panel"
+ResetEntrance: "Batal pintu masuk keselamatan 1Panel"
+ResetIPs: "Batal sekatan IP yang dibenarkan 1Panel"
+ResetDomain: "Batal pengikatan domain 1Panel"
+ResetPasskey: "Kosongkan passkey 1Panel"
+UserList: "Dapatkan senarai pengguna 1Panel"
+UserTableName: "Nama"
+UserTableMFAStatus: "Status MFA"
+UserTableSuperAdmin: "Pentadbir Super"
+UserTableCreatedAt: "Dicipta Pada"
+UserEmptyList: "Tiada pengguna ditemui"
+RestoreCommands: "Rollback perkhidmatan dan data 1Panel"
+RestoreNoSuchFile: "Tiada fail rollback ditemui"
+RestoreStep1: "(1/5) Memulakan rollback perkhidmatan dan data 1Panel daripada direktori {{ .name }}..."
+RestoreStep2: "(2/5) Rollback binari 1Panel berjaya"
+RestoreStep3: "(3/5) Rollback skrip 1Panel berjaya"
+RestoreStep4: "(4/5) Rollback perkhidmatan 1Panel berjaya"
+RestoreStep5: "(5/5) Rollback data 1Panel berjaya"
+RestoreSuccessful: "Rollback berjaya. Dikembalikan ke {{ .version }}. Perkhidmatan sedang dimulakan semula..."
+UpdateCommands: "Kemas kini maklumat panel"
+UpdateUser: "Kemas kini pengguna panel"
+UpdatePassword: "Kemas kini kata laluan panel"
+UpdatePort: "Kemas kini port panel"
+UpdateUserNull: "Ralat: Pengguna panel kosong"
+UpdateUserBlank: "Ralat: Pengguna panel mengandungi ruang kosong"
+UpdateUserFormat: "Ralat: Format pengguna panel tidak sah Hanya menyokong huruf Inggeris, Cina, nombor, dan _, dengan panjang 3-30 aksara"
+UpdateUserErr: "Ralat: Gagal mengemas kini pengguna panel, {{ .err }}"
+UpdateSuccessful: "Kemas kini berjaya"
+UpdateUserResult: "Pengguna panel: {{ .name }}"
+UpdatePasswordRead: "Ralat: Gagal membaca maklumat kata laluan panel, {{ .err }}"
+UpdatePasswordNull: "Ralat: Kata laluan panel kosong"
+UpdateUPasswordBlank: "Ralat: Kata laluan panel mengandungi ruang kosong"
+UpdatePasswordFormat: "Ralat: Kata laluan panel hanya menyokong huruf, nombor, dan aksara khas (@#$%*_,.?), dengan panjang 8-30 aksara."
+UpdatePasswordLen: "Ralat: Sila masukkan kata laluan lebih panjang daripada 6 aksara"
+UpdatePasswordRe: "Sahkan kata laluan:"
+UpdatePasswordErr: "Ralat: Gagal mengemas kini kata laluan panel, {{ .err }}"
+UpdatePasswordSame: "Ralat: Kedua-dua kata laluan tidak sepadan, sila semak dan cuba lagi"
+UpdatePasswordResult: "Kata laluan panel: {{ .name }}"
+UpdatePortFormat: "Ralat: Nombor port yang dimasukkan mesti antara 1 hingga 65535"
+UpdatePortUsed: "Ralat: Nombor port sudah digunakan, sila semak dan cuba lagi"
+UpdatePortErr: "Ralat: Gagal mengemas kini port panel, {{ .err }}"
+UpdatePortResult: "Port Panel: {{ .name }}"
+UpdatePortFirewallAdd: "Gagal menambah peraturan port firewall, {{ .err }}, sila tambah port {{ .name }} secara manual ke dalam peraturan firewall."
+UpdatePortFirewallDel: "Ralat: Gagal memadam port firewall, {{ .err }}"
+UpdatePortFirewallReload: "Gagal memuat semula firewall, {{ .err }}, sila muat semula firewall secara manual."
+UserInfo: "Dapatkan maklumat panel"
+UserInfoAddr: "Alamat panel: "
+UserInfoPassHelp: "Petua: Untuk menukar kata laluan, anda boleh menjalankan arahan: "
+DBConnErr: "Ralat: Gagal memulakan sambungan pangkalan data, {{ .err }}"
+SystemVersion: "Versi: "
+SystemMode: "Mod: "
+
+#cluster
+ErrMasterDelete: "Tidak dapat menghapus nod utama, sila hapuskan nod perantara dahulu."
+ClusterNameIsExist: "Nama kluster sudah wujud."
+AppStatusUnHealthy: "Pengambilan status aplikasi tidak normal, sila periksa status nod pemasangan dalam senarai nod."
+MasterNodePortNotAvailable: "Pengesahan kesambungan pelabuhan {{ .name }} nod {{ .port }} gagal, sila periksa tetapan firewall/kumpulan keselamatan dan status nod utama."
+ClusterMasterNotExist: "Node utama kluster terputus, sila padamkan nod anak."
+
+#ssl
+ErrReqFailed: "{{.name}} permintaan gagal: {{ .err }}"
+
+#command
+Name: "Nama"
+Command: "Arahan"

@@ -1,0 +1,16 @@
+package service
+
+import "github.com/1Panel-dev/1Panel/core/app/repo"
+
+var (
+	commandRepo    = repo.NewICommandRepo()
+	settingRepo    = repo.NewISettingRepo()
+	backupRepo     = repo.NewIBackupRepo()
+	logRepo        = repo.NewILogRepo()
+	groupRepo      = repo.NewIGroupRepo()
+	upgradeLogRepo = repo.NewIUpgradeLogRepo()
+	openNodeRepo   = repo.NewIOpenNodeRepo()
+
+	agentRepo  = repo.NewIAgentRepo()
+	scriptRepo = repo.NewIScriptRepo()
+)

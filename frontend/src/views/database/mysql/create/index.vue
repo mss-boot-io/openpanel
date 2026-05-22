@@ -1,0 +1,178 @@
+<template>
+    <DrawerPro v-model="createVisible" :header="$t('commons.button.create')" @close="handleClose" size="normal">
+        <el-form ref="formRef" label-position="top" :model="form" :rules="rules" v-loading="loading">
+            <el-form-item :label="$t('commons.table.name')" prop="name">
+                <el-input clearable v-model.trim="form.name" @input="form.username = form.name" />
+            </el-form-item>
+            <el-form-item :label="$t('database.format')" prop="format">
+                <el-select filterable v-model="form.format" @change="loadCollations()">
+                    <el-option
+                        v-for="item of formatOptions"
+                        :key="item.format"
+                        :label="item.format"
+                        :value="item.format"
+                    />
+                </el-select>
+            </el-form-item>
+            <el-form-item :label="$t('database.collation')" prop="collation">
+                <el-select filterable v-model="form.collation" clearable>
+                    <el-option v-for="item of collationOptions" :key="item" :label="item" :value="item" />
+                </el-select>
+                <span class="input-help">{{ $t('database.collationHelper', [form.format]) }}</span>
+            </el-form-item>
+            <el-form-item :label="$t('commons.login.username')" prop="username">
+                <el-input clearable v-model.trim="form.username" />
+            </el-form-item>
+            <el-form-item :label="$t('commons.login.password')" prop="password">
+                <el-input type="password" clearable show-password v-model.trim="form.password">
+                    <template #append>
+                        <el-button @click="random">{{ $t('commons.button.random') }}</el-button>
+                    </template>
+                </el-input>
+                <span class="input-help">{{ $t('commons.rule.illegalChar') }}</span>
+            </el-form-item>
+            <el-form-item :label="$t('database.permission')" prop="permission">
+                <el-select v-model="form.permission">
+                    <el-option value="%" :label="$t('database.permissionAll')" />
+                    <el-option
+                        v-if="form.from !== 'local'"
+                        value="localhost"
+                        :label="$t('terminal.localhost') + '(localhost)'"
+                    />
+                    <el-option value="ip" :label="$t('database.permissionForIP')" />
+                </el-select>
+                <span v-if="form.from !== 'local'" class="input-help">
+                    {{ $t('database.localhostHelper') }}
+                </span>
+            </el-form-item>
+            <el-form-item v-if="form.permission === 'ip'" prop="permissionIPs">
+                <el-input clearable :rows="3" type="textarea" v-model="form.permissionIPs" />
+                <span class="input-help">{{ $t('database.remoteHelper') }}</span>
+            </el-form-item>
+            <el-form-item :label="$t('commons.table.type')" prop="database">
+                <el-tag>{{ form.database + ' [' + form.type + ']' }}</el-tag>
+            </el-form-item>
+            <el-form-item :label="$t('commons.table.description')" prop="description">
+                <el-input type="textarea" clearable v-model="form.description" />
+            </el-form-item>
+        </el-form>
+        <template #footer>
+            <span class="dialog-footer">
+                <el-button :disabled="loading" @click="createVisible = false">
+                    {{ $t('commons.button.cancel') }}
+                </el-button>
+                <el-button :disabled="loading" type="primary" @click="onSubmit(formRef)">
+                    {{ $t('commons.button.confirm') }}
+                </el-button>
+            </span>
+        </template>
+    </DrawerPro>
+</template>
+
+<script lang="ts" setup>
+import { reactive, ref } from 'vue';
+import { Rules } from '@/global/form-rules';
+import i18n from '@/lang';
+import { ElForm } from 'element-plus';
+import { addMysqlDB, loadFormatCollations } from '@/api/modules/database';
+import { MsgSuccess } from '@/utils/message';
+import { getRandomStr } from '@/utils/id';
+const loading = ref();
+const createVisible = ref(false);
+const formatOptions = ref();
+const collationOptions = ref();
+const form = reactive({
+    name: '',
+    from: 'local',
+    type: '',
+    database: '',
+    format: '',
+    collation: '',
+    username: '',
+    password: '',
+    permission: '',
+    permissionIPs: '',
+    description: '',
+});
+const rules = reactive({
+    name: [Rules.requiredInput, Rules.dbName],
+    format: [Rules.requiredSelect],
+    username: [Rules.requiredInput, Rules.name],
+    password: [Rules.requiredInput, Rules.noSpace, Rules.illegal],
+    permission: [Rules.requiredSelect],
+    permissionIPs: [Rules.requiredInput, Rules.noSpace, Rules.illegal],
+});
+
+type FormInstance = InstanceType<typeof ElForm>;
+const formRef = ref<FormInstance>();
+
+interface DialogProps {
+    from: string;
+    type: string;
+    database: string;
+}
+const acceptParams = (params: DialogProps): void => {
+    form.name = '';
+    form.from = params.from;
+    form.type = params.type;
+    form.database = params.database;
+    form.format = 'utf8mb4';
+    form.collation = '';
+    form.username = '';
+    form.permission = '%';
+    form.permissionIPs = '';
+    form.description = '';
+    random();
+    loadOptions();
+    createVisible.value = true;
+};
+const handleClose = () => {
+    createVisible.value = false;
+};
+
+const loadOptions = async () => {
+    const defaultOptions = [{ format: 'utf8mb4' }, { format: 'utf8mb3' }, { format: 'gbk' }, { format: 'big5' }];
+    await loadFormatCollations(form.database).then((res) => {
+        formatOptions.value = res.data || defaultOptions;
+        loadCollations();
+    });
+};
+
+const loadCollations = async () => {
+    collationOptions.value = formatOptions.value?.find((item) => item.format === form.format)?.collations || [];
+};
+
+const random = async () => {
+    form.password = getRandomStr(16);
+};
+
+const emit = defineEmits<{ (e: 'search'): void }>();
+const onSubmit = async (formEl: FormInstance | undefined) => {
+    if (!formEl) return;
+    formEl.validate(async (valid) => {
+        if (!valid) return;
+        if (form.permission === 'ip') {
+            form.permission = form.permissionIPs;
+        }
+        loading.value = true;
+        await addMysqlDB(form)
+            .then(() => {
+                loading.value = false;
+                MsgSuccess(i18n.global.t('commons.msg.operationSuccess'));
+                emit('search');
+                createVisible.value = false;
+            })
+            .catch(() => {
+                if (form.permission != '%') {
+                    form.permissionIPs = form.permission;
+                    form.permission = 'ip';
+                }
+                loading.value = false;
+            });
+    });
+};
+
+defineExpose({
+    acceptParams,
+});
+</script>

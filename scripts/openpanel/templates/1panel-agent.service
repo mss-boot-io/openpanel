@@ -1,0 +1,19 @@
+[Unit]
+Description=OpenPanel Agent
+Documentation=https://github.com/1Panel-dev/1Panel
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/usr/local/bin/1panel-agent
+Restart=always
+RestartSec=5s
+LimitNOFILE=1048576
+KillSignal=SIGTERM
+TimeoutStopSec=30s
+
+[Install]
+WantedBy=multi-user.target
