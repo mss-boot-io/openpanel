@@ -73,6 +73,9 @@ online 1Panel installer.
 ## Current OpenPanel Deployment
 
 - Verified at: `2026-05-22 14:xx Asia/Shanghai`
+- Git origin: `git@github.com:mss-boot-io/openpanel.git`
+- Git baseline: `8c4e325`, tag `openpanel-working-20260522`
+- Git maintenance notes: `scripts/openpanel/GIT.md`
 - Latest artifact deployed:
   `/home/lwx/go/src/github.com/lwnmengjing/1Panel/build/openpanel/openpanel-v2.0.0-open.20260522141626-linux-amd64.tar.gz`
 - Master panel URL:
