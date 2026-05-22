@@ -24,6 +24,8 @@ upgrade work without rediscovering the setup.
   `local -> open:1 -> open:2 -> local`.
 - The upstream online installer and online upgrade flow must not be used for
   this fork. Build and deploy with `scripts/openpanel/*`.
+- OpenPanel's own one-click installer is `install.sh`; GitHub Releases are
+  published by tags named `openpanel-v*`.
 
 ## Most Important Memory Files
 
@@ -40,6 +42,7 @@ upgrade work without rediscovering the setup.
   - Files to protect during official 1Panel updates.
 - `scripts/openpanel/README.md`
   - Self-hosted build/deploy script usage.
+  - Release installer and existing-node upgrade usage.
   - Runtime paths and deployment notes.
 
 ## Git Memory
@@ -49,6 +52,7 @@ upgrade work without rediscovering the setup.
 - Upstream source: `https://github.com/1Panel-dev/1Panel.git`
 - Baseline tag: `openpanel-working-20260522`
 - Baseline commit: `8c4e325 openpanel: initial custom working baseline`
+- Release tags: use `openpanel-v*`, not upstream-style `v*`.
 
 ## Deployment Memory
 
@@ -62,6 +66,10 @@ wsl -d Ubuntu --cd /home/lwx -e ssh root@216.152.152.236
 ```
 
 Do not use Windows-native `ssh` or `scp` for these nodes.
+
+Existing upstream 1Panel installs might not use `/opt` as the base directory.
+OpenPanel upgrade scripts auto-detect `BASE_DIR` from `/usr/local/bin/1pctl`
+when possible, and also accept an explicit `--base-dir`.
 
 ## Current Node Mapping
 
@@ -88,6 +96,8 @@ first:
   `frontend/src/layout/components/Sidebar/components/Collapse.vue`.
 - Open Nodes settings page under `frontend/src/views/setting/open-node`.
 - Self-hosted scripts under `scripts/openpanel`.
+- Root one-click installer `install.sh`.
+- OpenPanel release workflow `.github/workflows/openpanel-release.yml`.
 
 ## Minimum Acceptance Test
 

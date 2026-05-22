@@ -34,6 +34,25 @@ git commit -m "openpanel: describe the change"
 git push origin main
 ```
 
+## Release Flow
+
+OpenPanel releases are published from tags named `openpanel-v*` so they do not
+trigger the upstream `v*` release workflow.
+
+```bash
+cd /home/lwx/go/src/github.com/lwnmengjing/1Panel
+git tag openpanel-v2.0.0-open.1
+git push origin openpanel-v2.0.0-open.1
+```
+
+The `.github/workflows/openpanel-release.yml` workflow uploads:
+
+- `install.sh`
+- `openpanel-linux-amd64.tar.gz`
+- `openpanel-linux-arm64.tar.gz`
+- versioned copies of the same artifacts
+- `checksums.txt`
+
 ## Upstream Upgrade Flow
 
 ```bash

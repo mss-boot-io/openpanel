@@ -37,6 +37,28 @@
 
 ---
 
+## OpenPanel Fork Notes
+
+This fork adds self-developed Open Nodes support and has its own installer and
+release flow. Do not use the upstream 1Panel online installer or upstream online
+upgrade flow for OpenPanel deployments.
+
+Install from the latest OpenPanel release:
+
+```bash
+curl -fsSL https://github.com/mss-boot-io/openpanel/releases/latest/download/install.sh | \
+  bash -s -- --role master --port 9999 --entrance openpanel
+```
+
+Upgrade an existing 1Panel/OpenPanel node in place from the local WSL workspace:
+
+```bash
+scripts/openpanel/upgrade_existing_node.sh --host <server-ip> --role master
+```
+
+For development handoff and deployment memory, start with
+[`OPENPANEL_MEMORY.md`](OPENPANEL_MEMORY.md).
+
 ## What is 1Panel?
 
 1Panel is a modern, open-source VPS control panel — and the only one with **native AI agent support**. Run Ollama models, deploy OpenClaw agents, and manage your entire server stack from one clean web interface. No CLI memorization required.

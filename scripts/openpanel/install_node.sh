@@ -16,6 +16,14 @@ API_WHITELIST="127.0.0.1"
 API_VALIDITY="0"
 RESET_DATA="false"
 SKIP_APT="false"
+PRESERVE_CONFIG="false"
+
+BASE_DIR_SET="false"
+PANEL_PORT_SET="false"
+PANEL_USERNAME_SET="false"
+PANEL_PASSWORD_SET="false"
+PANEL_ENTRANCE_SET="false"
+LANGUAGE_SET="false"
 
 usage() {
   cat <<'EOF_USAGE'
@@ -23,7 +31,8 @@ Usage: install_node.sh [options]
 
 Options:
   --role master|worker       Node role label for install metadata.
-  --base-dir /opt            Runtime base dir used by the app.
+  --base-dir /opt            Runtime base dir used by the app. Auto-detected
+                             from an existing 1pctl when omitted.
   --port 9999                Core HTTP listen port.
   --username admin           Initial panel username for a new database.
   --password VALUE           Initial panel password for a new database.
@@ -33,8 +42,9 @@ Options:
   --api-key VALUE            Enable the public API with this key after init.
   --api-whitelist VALUE      Newline or comma separated API IP whitelist.
   --api-validity MINUTES     API timestamp validity. 0 disables expiry.
-  --reset-data               Move existing /opt/1panel data aside first.
+  --reset-data               Move existing <base-dir>/1panel data aside first.
   --skip-apt                 Do not install basic OS packages.
+  --preserve-config          Keep an existing <base-dir>/1panel/conf/app.yaml.
 EOF_USAGE
 }
 
@@ -54,18 +64,19 @@ normalize_list() {
 while [ "$#" -gt 0 ]; do
   case "$1" in
     --role) ROLE="$2"; shift 2 ;;
-    --base-dir) BASE_DIR="$2"; shift 2 ;;
-    --port) PANEL_PORT="$2"; shift 2 ;;
-    --username) PANEL_USERNAME="$2"; shift 2 ;;
-    --password) PANEL_PASSWORD="$2"; shift 2 ;;
-    --entrance) PANEL_ENTRANCE="$2"; shift 2 ;;
-    --language) LANGUAGE="$2"; shift 2 ;;
+    --base-dir) BASE_DIR="$2"; BASE_DIR_SET="true"; shift 2 ;;
+    --port) PANEL_PORT="$2"; PANEL_PORT_SET="true"; shift 2 ;;
+    --username) PANEL_USERNAME="$2"; PANEL_USERNAME_SET="true"; shift 2 ;;
+    --password) PANEL_PASSWORD="$2"; PANEL_PASSWORD_SET="true"; shift 2 ;;
+    --entrance) PANEL_ENTRANCE="$2"; PANEL_ENTRANCE_SET="true"; shift 2 ;;
+    --language) LANGUAGE="$2"; LANGUAGE_SET="true"; shift 2 ;;
     --version) VERSION="$2"; shift 2 ;;
     --api-key) API_KEY="$2"; shift 2 ;;
     --api-whitelist) API_WHITELIST="$2"; shift 2 ;;
     --api-validity) API_VALIDITY="$2"; shift 2 ;;
     --reset-data) RESET_DATA="true"; shift ;;
     --skip-apt) SKIP_APT="true"; shift ;;
+    --preserve-config) PRESERVE_CONFIG="true"; shift ;;
     -h|--help) usage; exit 0 ;;
     *) echo "unknown option: $1" >&2; usage; exit 1 ;;
   esac
@@ -80,6 +91,73 @@ if [ "${ROLE}" != "master" ] && [ "${ROLE}" != "worker" ]; then
   echo "--role must be master or worker" >&2
   exit 1
 fi
+
+yaml_value() {
+  local key="$1"
+  local file="$2"
+  sed -n -E "s/^[[:space:]]*${key}:[[:space:]]*['\"]?([^'\"]*)['\"]?[[:space:]]*$/\1/p" "${file}" | head -n 1
+}
+
+ctl_value() {
+  local key="$1"
+  local file="${2:-/usr/local/bin/1pctl}"
+  [ -r "${file}" ] || return 0
+  sed -n -E "s/^${key}=(.*)$/\1/p" "${file}" | head -n 1 | sed -E "s/^['\"]//; s/['\"]$//"
+}
+
+detect_existing_base_dir() {
+  local value candidate
+
+  if [ "${BASE_DIR_SET}" = "true" ] || [ "${RESET_DATA}" = "true" ]; then
+    return
+  fi
+
+  value="$(ctl_value BASE_DIR)"
+  if [ -n "${value}" ] && [ -d "${value%/}/1panel" ]; then
+    BASE_DIR="${value%/}"
+    return
+  fi
+
+  for candidate in /opt /data /www /mnt/data /home /usr/local; do
+    if [ -s "${candidate%/}/1panel/conf/app.yaml" ]; then
+      BASE_DIR="${candidate%/}"
+      return
+    fi
+  done
+}
+
+load_preserved_config_values() {
+  local app_yaml="${BASE_DIR%/}/1panel/conf/app.yaml"
+  local value
+
+  if [ "${PRESERVE_CONFIG}" != "true" ] || [ "${RESET_DATA}" = "true" ] || [ ! -s "${app_yaml}" ]; then
+    return
+  fi
+
+  if [ "${PANEL_PORT_SET}" != "true" ]; then
+    value="$(yaml_value port "${app_yaml}")"
+    [ -n "${value}" ] && PANEL_PORT="${value}"
+  fi
+  if [ "${PANEL_USERNAME_SET}" != "true" ]; then
+    value="$(yaml_value username "${app_yaml}")"
+    [ -n "${value}" ] && PANEL_USERNAME="${value}"
+  fi
+  if [ "${PANEL_PASSWORD_SET}" != "true" ]; then
+    value="$(yaml_value password "${app_yaml}")"
+    [ -n "${value}" ] && PANEL_PASSWORD="${value}"
+  fi
+  if [ "${PANEL_ENTRANCE_SET}" != "true" ]; then
+    value="$(yaml_value entrance "${app_yaml}")"
+    [ -n "${value}" ] && PANEL_ENTRANCE="${value}"
+  fi
+  if [ "${LANGUAGE_SET}" != "true" ]; then
+    value="$(yaml_value language "${app_yaml}")"
+    [ -n "${value}" ] && LANGUAGE="${value}"
+  fi
+}
+
+detect_existing_base_dir
+load_preserved_config_values
 
 if [ -z "${PANEL_PASSWORD}" ]; then
   PANEL_PASSWORD="$(random_alnum 18)"
@@ -142,6 +220,10 @@ install_files() {
 
 write_app_config() {
   local app_yaml="${BASE_DIR%/}/1panel/conf/app.yaml"
+  if [ "${PRESERVE_CONFIG}" = "true" ] && [ "${RESET_DATA}" != "true" ] && [ -s "${app_yaml}" ]; then
+    echo "preserved existing app config: ${app_yaml}"
+    return
+  fi
   cat >"${app_yaml}" <<EOF_APP
 base:
   install_dir: ${BASE_DIR}
