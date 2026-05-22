@@ -39,16 +39,25 @@ git push origin main
 OpenPanel releases are published from tags named `openpanel-v*` so they do not
 trigger the upstream `v*` release workflow.
 
-Current first release tag:
+Release tags:
 
 - `openpanel-v2.0.0-open.1`
 - points to `ab66895 openpanel: add installer and release workflow`
+- CI failed because `frontend/src/views/container/image/build/index.vue` was
+  ignored by the generic `build/` rule.
+- `openpanel-v2.0.0-open.2`
+- points to `ba1be5e openpanel: fix release build inputs`
+- current release tag to watch.
 
 ```bash
 cd /home/lwx/go/src/github.com/lwnmengjing/1Panel
-git tag openpanel-v2.0.0-open.1
-git push origin openpanel-v2.0.0-open.1
+git tag openpanel-v2.0.0-open.N
+git push origin openpanel-v2.0.0-open.N
 ```
+
+GitHub CLI is installed in WSL at `/home/lwx/.local/bin/gh`. It needs
+`gh auth login` or `GH_TOKEN` before it can manage private repo Actions and
+Releases.
 
 The `.github/workflows/openpanel-release.yml` workflow uploads:
 

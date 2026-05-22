@@ -53,8 +53,18 @@ upgrade work without rediscovering the setup.
 - Baseline tag: `openpanel-working-20260522`
 - Baseline commit: `8c4e325 openpanel: initial custom working baseline`
 - Release tags: use `openpanel-v*`, not upstream-style `v*`.
-- First OpenPanel release tag pushed: `openpanel-v2.0.0-open.1`
 - Installer/release commit: `ab66895 openpanel: add installer and release workflow`
+- Release build fix commit: `ba1be5e openpanel: fix release build inputs`
+- Release tags pushed:
+  - `openpanel-v2.0.0-open.1` failed in CI because
+    `frontend/src/views/container/image/build/index.vue` was ignored by the
+    generic `build/` rule.
+  - `openpanel-v2.0.0-open.2` includes the fix and is the current release tag
+    to watch.
+- WSL GitHub CLI path: `/home/lwx/.local/bin/gh`.
+- `gh` version installed in WSL: `2.92.0`.
+- `gh` still needs authentication with `gh auth login` or `GH_TOKEN` before it
+  can manage private repo Actions/Releases.
 
 ## Deployment Memory
 
