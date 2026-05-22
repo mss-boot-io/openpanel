@@ -1,5 +1,8 @@
 # OpenPanel self-hosted deployment
 
+For a new conversation or a fresh agent session, start from the root memory
+index first: `OPENPANEL_MEMORY.md`.
+
 These scripts deploy this fork without using the upstream 1Panel online
 installer. They build local artifacts from the current workspace, copy them to
 Ubuntu nodes over SSH, install systemd services, and optionally seed Open Nodes
