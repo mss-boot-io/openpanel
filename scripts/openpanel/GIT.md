@@ -52,6 +52,9 @@ Release tags:
 - `openpanel-v2.0.0-open.3`
 - points to `e740f66 openpanel: track frontend build source views`
 - release succeeded and published assets.
+- `openpanel-v2.0.0-open.4`
+- points to `e68c5ca openpanel: keep public release installer only`
+- current public release.
 
 ```bash
 cd /home/lwx/go/src/github.com/lwnmengjing/1Panel

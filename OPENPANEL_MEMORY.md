@@ -62,6 +62,7 @@ upgrade work without rediscovering the setup.
   - `openpanel-v2.0.0-open.2` failed because another source directory named
     `build` was still ignored.
   - `openpanel-v2.0.0-open.3` succeeded and published release assets.
+  - `openpanel-v2.0.0-open.4` succeeded and is the current public release.
 - WSL GitHub CLI path: `/home/lwx/.local/bin/gh`.
 - `gh` version installed in WSL: `2.92.0`.
 - GitHub CLI is authenticated in WSL and can manage Actions/Releases.
@@ -115,6 +116,8 @@ first:
 
 - `install.sh` is the server-side one-click installer. It downloads artifacts
   from GitHub Releases.
+- The repository is public; the installer uses public GitHub Release download
+  URLs only.
 - `scripts/openpanel/upgrade_existing_node.sh` is the local WSL/SSH helper for
   upgrading an existing open-source 1Panel node in place.
 - Existing installs are upgraded without `--reset-data` by default.
