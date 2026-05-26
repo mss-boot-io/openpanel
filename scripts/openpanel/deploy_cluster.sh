@@ -127,6 +127,12 @@ install_remote() {
   ssh_base "${SSH_USER}@${host}" "rm -rf '${REMOTE_TMP}' && mkdir -p '${REMOTE_TMP}'"
   scp_base "${ARTIFACT}" "${SSH_USER}@${host}:${REMOTE_TMP}/artifact.tar.gz"
   ssh_base "${SSH_USER}@${host}" "tar -xzf '${REMOTE_TMP}/artifact.tar.gz' -C '${REMOTE_TMP}'"
+  local remote_work_dir
+  remote_work_dir="$(ssh_base "${SSH_USER}@${host}" "set -e; if [ -f '${REMOTE_TMP}/install_node.sh' ]; then printf '%s\n' '${REMOTE_TMP}'; else find '${REMOTE_TMP}' -mindepth 1 -maxdepth 1 -type d | head -n 1; fi")"
+  if [ -z "${remote_work_dir}" ]; then
+    echo "failed to locate extracted OpenPanel package on ${host}" >&2
+    exit 1
+  fi
 
   local reset_arg=()
   local apt_arg=()
@@ -138,7 +144,7 @@ install_remote() {
   fi
 
   local remote_cmd=(
-    bash "${REMOTE_TMP}/install_node.sh"
+    bash "${remote_work_dir}/install_node.sh"
     --role "${role}"
     --port "${PANEL_PORT}"
     --username "${PANEL_USERNAME}"

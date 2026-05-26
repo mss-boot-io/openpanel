@@ -3,10 +3,10 @@
 For a new conversation or a fresh agent session, start from the root memory
 index first: `OPENPANEL_MEMORY.md`.
 
-These scripts deploy this fork without using the upstream 1Panel online
-installer. They build local artifacts from the current workspace, copy them to
-Ubuntu nodes over SSH, install systemd services, and optionally seed Open Nodes
-through the public API.
+These scripts build and deploy this fork without downloading upstream 1Panel
+binaries. OpenPanel's public release installer intentionally follows the
+official 1Panel installer flow; the release package source is the only part
+redirected to OpenPanel GitHub Releases.
 
 The runtime paths intentionally stay compatible with the upstream codebase for
 the first iteration:
@@ -23,10 +23,10 @@ the node workflow is proven.
 
 ## Scripts
 
-- `../../install.sh` is the one-click server-side installer. It downloads a
-  GitHub Release artifact and installs or upgrades the current node.
-- `build_artifact.sh` builds frontend assets plus Linux binaries and writes a
-  tarball under `build/openpanel`.
+- `../../install.sh` is the public one-click installer. It mirrors the official
+  1Panel quick-start flow and downloads OpenPanel release assets.
+- `build_artifact.sh` builds frontend assets plus Linux binaries and writes an
+  official-style installer tarball under `build/openpanel`.
 - `install_node.sh` runs on a VPS from inside an extracted artifact and installs
   or updates one node.
 - `upgrade_existing_node.sh` runs from the local WSL workspace and upgrades one
@@ -41,15 +41,18 @@ After an `openpanel-v*` Git tag has produced a GitHub Release, a fresh server ca
 install directly with:
 
 ```bash
-curl -fsSL https://github.com/mss-boot-io/openpanel/releases/latest/download/install.sh | \
-  bash -s -- --role master --port 9999 --entrance openpanel
+curl -fsSL https://github.com/mss-boot-io/openpanel/releases/latest/download/install.sh | bash
 ```
 
-For a worker node that should accept Open Nodes calls from a master:
+The script downloads `openpanel-linux-<arch>.tar.gz`, verifies any cached local
+package with the release checksum, extracts the official-style package, writes
+`.selected_edition`, and then runs the package's installer. From that point on,
+the prompts and installation behavior come from the official 1Panel installer
+files vendored under `scripts/openpanel/installer/`.
 
 ```bash
-curl -fsSL https://github.com/mss-boot-io/openpanel/releases/latest/download/install.sh | \
-  bash -s -- --role worker --api-key <worker-api-key> --api-whitelist <master-ip>
+OPENPANEL_RELEASE=openpanel-v2.0.0-open.5 \
+  bash <(curl -fsSL https://github.com/mss-boot-io/openpanel/releases/latest/download/install.sh)
 ```
 
 ## Upgrade Existing 1Panel
@@ -92,9 +95,13 @@ and stores a root-only copy on each node at `/opt/1panel/conf/install-info`.
 
 ## Notes
 
-- This is not the upstream installer and does not download upstream 1Panel
-  install scripts.
-- Docker is not installed by default. Install Docker separately if you want to
-  test app/container workflows.
+- The public one-click installer should stay as close as possible to 1Panel's
+  official `quick_start.sh`; only the release/binary source should point at
+  OpenPanel.
+- Release tarballs include the official 1Panel installer layout at package root
+  and keep `install_node.sh` plus the legacy artifact layout only for the local
+  WSL deployment helpers.
+- The local WSL deployment helpers do not install Docker by default. The public
+  one-click installer follows the official interactive Docker prompt.
 - `--reset-data` renames existing `<base-dir>/1panel` data to a timestamped
   backup instead of deleting it.

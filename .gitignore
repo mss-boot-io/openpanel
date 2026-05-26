@@ -67,6 +67,8 @@ dist/
 1panel.service
 install.sh
 !/install.sh
+!scripts/openpanel/installer/1pctl
+!scripts/openpanel/installer/install.sh
 quick_start.sh
 cmd/server/fileList.txt
 .fileList.txt
