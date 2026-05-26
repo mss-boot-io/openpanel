@@ -1,6 +1,6 @@
 # OpenPanel Memory Index
 
-Last updated: 2026-05-22 Asia/Shanghai
+Last updated: 2026-05-26 Asia/Shanghai
 
 This file is the first place to read in a new Codex conversation. It indexes
 the project memory needed to continue development, deployment, and upstream
@@ -22,8 +22,9 @@ upgrade work without rediscovering the setup.
   through their public API keys.
 - The deployed cluster is currently functional and verified:
   `local -> open:1 -> open:2 -> local`.
-- The upstream online installer and online upgrade flow must not be used for
-  this fork. Build and deploy with `scripts/openpanel/*`.
+- Do not download upstream 1Panel binaries for this fork. The public OpenPanel
+  installer follows the official 1Panel installer flow, but its release/package
+  source is OpenPanel GitHub Releases.
 - OpenPanel's own one-click installer is `install.sh`; GitHub Releases are
   published by tags named `openpanel-v*`.
 
@@ -62,7 +63,11 @@ upgrade work without rediscovering the setup.
   - `openpanel-v2.0.0-open.2` failed because another source directory named
     `build` was still ignored.
   - `openpanel-v2.0.0-open.3` succeeded and published release assets.
-  - `openpanel-v2.0.0-open.4` succeeded and is the current public release.
+  - `openpanel-v2.0.0-open.4` succeeded and published public-only release
+    assets.
+  - `openpanel-v2.0.0-open.5` succeeded and is the current public release.
+    It changed the public installer back to the official 1Panel-style flow,
+    with only the package source redirected to OpenPanel GitHub Releases.
 - WSL GitHub CLI path: `/home/lwx/.local/bin/gh`.
 - `gh` version installed in WSL: `2.92.0`.
 - GitHub CLI is authenticated in WSL and can manage Actions/Releases.
@@ -114,8 +119,16 @@ first:
 
 ## Installer Memory
 
-- `install.sh` is the server-side one-click installer. It downloads artifacts
-  from GitHub Releases.
+- `install.sh` is the public one-click installer. Keep it close to the official
+  1Panel `quick_start.sh`; the intended difference is the OpenPanel release
+  source.
+- Official installer files are vendored under `scripts/openpanel/installer/`
+  from the 1Panel installer `v2` branch.
+- Release tarballs are official-style wrapped packages:
+  `openpanel-<version>-linux-<arch>/install.sh`, `1pctl`, `1panel-core`,
+  `1panel-agent`, `initscript/`, `lang/`, and `GeoIP.mmdb`.
+- Release tarballs also include `install_node.sh` plus the legacy artifact
+  layout only so local WSL deployment helpers keep working.
 - The repository is public; the installer uses public GitHub Release download
   URLs only.
 - `scripts/openpanel/upgrade_existing_node.sh` is the local WSL/SSH helper for
@@ -131,6 +144,8 @@ first:
 After any important change or upstream merge:
 
 - Build succeeds with `scripts/openpanel/build_artifact.sh`.
+- Public release assets pass checksum verification and the release tarball has
+  the official-style wrapped package layout.
 - Deploy succeeds with `scripts/openpanel/deploy_cluster.sh`.
 - All three nodes report `1panel-core=active` and `1panel-agent=active`.
 - Master entrance returns HTTP `200`.
@@ -152,3 +167,5 @@ Use these keywords when looking for memory:
 - `open:2`
 - `WSL-only SSH`
 - `self-hosted deployment`
+- `official-style installer`
+- `OpenPanel release installer`

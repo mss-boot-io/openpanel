@@ -1,6 +1,6 @@
 # OpenPanel Git Maintenance
 
-Last updated: 2026-05-22 Asia/Shanghai
+Last updated: 2026-05-26 Asia/Shanghai
 
 ## Repository
 
@@ -14,8 +14,9 @@ Last updated: 2026-05-22 Asia/Shanghai
 ## Rules
 
 - Push custom OpenPanel work to `origin`.
-- Do not use upstream online install or online upgrade scripts for deployed
-  nodes.
+- Do not download upstream 1Panel binaries for deployed OpenPanel nodes.
+- Keep the public OpenPanel one-click installer close to the official 1Panel
+  quick-start flow; only the release/package source should point to OpenPanel.
 - Treat upstream 1Panel as source code only. Merge upstream changes locally,
   rebuild the custom artifact, then redeploy with `scripts/openpanel`.
 - Keep generated outputs out of Git:
@@ -54,7 +55,11 @@ Release tags:
 - release succeeded and published assets.
 - `openpanel-v2.0.0-open.4`
 - points to `e68c5ca openpanel: keep public release installer only`
-- current public release.
+- succeeded with public-only release URLs.
+- `openpanel-v2.0.0-open.5`
+- points to `c88078a openpanel: align installer with upstream flow`
+- current public release. It vendors official 1Panel installer files and ships
+  official-style wrapped OpenPanel packages.
 
 ```bash
 cd /home/lwx/go/src/github.com/lwnmengjing/1Panel
@@ -72,6 +77,16 @@ The `.github/workflows/openpanel-release.yml` workflow uploads:
 - `openpanel-linux-arm64.tar.gz`
 - versioned copies of the same artifacts
 - `checksums.txt`
+
+Release package layout:
+
+- Top-level directory: `openpanel-<version>-linux-<arch>/`
+- Official installer files at package root:
+  `install.sh`, `1pctl`, `1panel-core`, `1panel-agent`, `initscript/`,
+  `lang/`, `GeoIP.mmdb`.
+- Extra local deployment compatibility files:
+  `install_node.sh`, `usr/local/bin/*`, `etc/systemd/system/*`,
+  `opt/openpanel/self/*`.
 
 ## Upstream Upgrade Flow
 
@@ -120,3 +135,5 @@ The minimum acceptance test for every upstream merge is:
 - `frontend/src/layout/components/Sidebar/components/Collapse.vue`
 - `frontend/src/views/setting/open-node/index.vue`
 - `scripts/openpanel/*`
+- `scripts/openpanel/installer/*`
+- Root release installer `install.sh`
